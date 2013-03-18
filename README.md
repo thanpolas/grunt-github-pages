@@ -25,7 +25,7 @@ $ ls -la
 index.md
 ```
 
-We add the `_site` folder in `.gitignore` and clone the current repository (*project*) to `_site`:
+We add the `_site` folder in `.gitignore` and clone the current repository ( *project* ) to `_site`:
 
 ```shell
 $ git clone git@github.com:thanpolas/project.git _site
@@ -76,6 +76,10 @@ So when you issue `grunt push` on your command line this is what will happen:
 2. The command `git add .` will be performed.
 3. The command `git commit -am "push"` will be performed.
 4. The command `git push origin gh-pages` will be performed.
+
+### The `src` Option
+
+The `src` option must be a single string that represents a directory. The API is weak at this point but use cases need to be presented before a solution is attempted as there are a few intricacies involved. So do create an issue if you need globbing patterns here.
 
 ### The `dest` Option
 
