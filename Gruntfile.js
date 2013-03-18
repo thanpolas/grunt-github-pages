@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         options: {
           commitMessage: 'push'
         },
-        src: '_site_git'
+        src: 'gh-pages',
       },
       custom_options: {
         options: {

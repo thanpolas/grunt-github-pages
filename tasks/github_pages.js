@@ -6,50 +6,83 @@
  * Licensed under the MIT license.
  */
 
-'use strict';
+var exec = require('child_process').exec;
+var path = require('path');
+var async = require('async');
 
 module.exports = function(grunt) {
+
+  var _ = grunt.util._;
 
   // Please see the grunt documentation for more information regarding task
   // creation: https://github.com/gruntjs/grunt/blob/devel/docs/toc.md
 
-  grunt.registerMultiTask('githubPages', 'Your task description goes here.', function() {
+  grunt.registerMultiTask('githubPages', function() {
+    var done = this.async();
+
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      punctuation: '.',
-      separator: ', '
+      commitMessage: 'auto commit',
+      remote: 'origin',
+      pushBranch: 'gh-pages'
     });
 
     var fileObj = this.files.shift();
 
 
+    var src = grunt.file.expand({
+      nonull: true,
+      filter: 'isDirectory'
+      }, fileObj.src);
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function(fileObj) {
-      // The source files to be concatenated. The "nonull" option is used
-      // to retain invalid files/patterns so they can be warned about.
-      var files = grunt.file.expand({nonull: true}, fileObj.src);
 
-      // Concat specified files.
-      var src = files.map(function(filepath) {
-        // Warn if a source file/pattern was invalid.
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.error('Source file "' + filepath + '" not found.');
-          return '';
-        }
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(options.separator);
+    if (0 === src.length) {
+      grunt.fail.warn('No source directory was provided');
+      done(false);
+      return;
+    }
 
-      // Handle options.
-      src += options.punctuation;
+    var cwd = src[0];
+    if ( _.isString(fileObj.dest)) {
+      // a destination warrants a copy operation
+      var sources = grunt.file.expand({filter: 'isFile'}, src[0] + '/**');
+      var dest;
+      sources.forEach(function(srcFile) {
+        dest = path.relative(src[0], srcFile);
+        dest = path.join(fileObj.dest, dest);
+        grunt.log.writeln('Copying ' + srcFile.yellow + ' -> ' + dest.cyan);
 
-      // Write the destination file.
-      grunt.file.write(fileObj.dest, src);
+        grunt.file.copy(srcFile, dest);
+      });
 
-      // Print a success message.
-      grunt.log.writeln('File "' + fileObj.dest + '" created.');
-    });
+      cwd = fileObj.dest;
+    }
+
+    grunt.file.setBase(cwd);
+
+    grunt.log.writeln('Changed working directory to: ' + cwd.blue);
+
+    async.series([
+      run('git add .', done),
+      run('git commit -am "' + options.commitMessage + '"', done),
+      run('git push ' + options.remote + ' ' + options.pushBranch, done)
+    ],
+    done);
   });
 
+  var run = function(cmd, done) {
+    return function(callback){
+      grunt.log.writeln('Executing: ' + cmd.blue);
+      var cp = exec(cmd, function (err, stdout, stderr) {
+        if (err) {
+          grunt.fail.warn(err);
+          done(false);
+          callback(err);
+          return;
+        }
+        callback();
+      });
+      cp.stdout.pipe(process.stdout);
+    };
+  };
 };
