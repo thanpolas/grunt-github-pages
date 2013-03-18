@@ -13,12 +13,16 @@ module.exports = function(grunt) {
   // Please see the grunt documentation for more information regarding task
   // creation: https://github.com/gruntjs/grunt/blob/devel/docs/toc.md
 
-  grunt.registerMultiTask('github_pages', 'Your task description goes here.', function() {
+  grunt.registerMultiTask('githubPages', 'Your task description goes here.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       punctuation: '.',
       separator: ', '
     });
+
+    var fileObj = this.files.shift();
+
+
 
     // Iterate over all specified file groups.
     this.files.forEach(function(fileObj) {
