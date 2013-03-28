@@ -1,7 +1,7 @@
 {
   "name": "grunt-github-pages",
   "description": "Push to gh-pages no problem",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/thanpolas/grunt-github-pages",
   "author": {
     "name": "Thanasis Polychronakis",
@@ -31,7 +31,7 @@
   "dependencies": {
     "grunt": "~0.4.1",
     "async": "~0.2.6"
-  }
+  },
   "devDependencies": {
     "matchdep": "~0.1.1",
     "grunt-mocha": "~0.2.3",
