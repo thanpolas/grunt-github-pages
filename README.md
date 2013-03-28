@@ -67,10 +67,10 @@ Edit your [Gruntfile][] and add the `githubPages` task:
   /* ... later on, after grunt.initConfig() call, create an alias: */
 
 // create an alias for the githubPages task
-grunt.registerTask('push', ['githubPages:target']);
+grunt.registerTask('deploy', ['githubPages:target']);
 ```
 
-So when you issue `grunt push` on your command line this is what will happen:
+So when you issue `grunt deploy` on your command line this is what will happen:
 
 1. The Current Working Directory will change to `_site`.
 2. The command `git add .` will be performed.
