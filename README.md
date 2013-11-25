@@ -137,6 +137,8 @@ The name of the *remote* to be used when issuing `git push`.
 The name of the *branch* to be used when issuing `git push`.
 
 ## Release History
+- **v0.0.4**, *25 Nov 2013*
+  - `git add` now uses the `-A` flag. Thanks [@epicserve](https://github.com/epicserve)
 - **v0.0.1**, *Mid Mar 2013*
   - Big Bang
 
