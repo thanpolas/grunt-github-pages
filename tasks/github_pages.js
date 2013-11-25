@@ -63,7 +63,7 @@ module.exports = function(grunt) {
     grunt.log.writeln('Changed working directory to: ' + cwd.blue);
 
     async.series([
-      run('git add .', done),
+      run('git add -A .', done),
       run('git commit -am "' + options.commitMessage + '"', done),
       run('git push ' + options.remote + ' ' + options.pushBranch, done)
     ],
