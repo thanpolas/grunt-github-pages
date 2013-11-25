@@ -87,7 +87,7 @@ grunt.registerTask('deploy', ['githubPages:target']);
 So when you issue `grunt deploy` on your command line this is what will happen:
 
 1. The Current Working Directory will change to `_site`.
-2. The command `git add .` will be performed.
+2. The command `git add -A .` will be performed.
 3. The command `git commit -am "push"` will be performed.
 4. The command `git push origin gh-pages` will be performed.
 
@@ -115,7 +115,7 @@ In this case, when you issue `grunt push` this is what will happen:
 
 1. All the contents of `_site` folder will be deep copied to `_site_git` overriding.
 2. The Current Working Directory will change to `_site_git`.
-3. The command `git add .` will be performed.
+3. The command `git add -A .` will be performed.
 4. The command `git commit -am "auto commit"` will be performed.
 5. The command `git push origin gh-pages` will be performed.
 
