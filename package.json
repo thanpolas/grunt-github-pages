@@ -1,7 +1,7 @@
 {
   "name": "grunt-github-pages",
   "description": "Push to gh-pages no problem",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/thanpolas/grunt-github-pages",
   "author": {
     "name": "Thanasis Polychronakis",
